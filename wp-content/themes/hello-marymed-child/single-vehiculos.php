@@ -37,9 +37,7 @@ get_header();
 			<div class="mm-ficha-grid">
 
 				<div class="mm-main">
-					<?php if ( has_post_thumbnail() ) : ?>
-						<figure class="mm-featured"><?php the_post_thumbnail( 'large' ); ?></figure>
-					<?php endif; ?>
+					<?php echo marymed_gallery_html( $pid ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 
 					<div class="mm-spec">
 						<?php if ( $anio ) : ?>

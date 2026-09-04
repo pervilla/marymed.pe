@@ -29,6 +29,7 @@ function marymed_load_includes() {
 		'customizer',    // Ajustes: numero WhatsApp + TikTok.
 		'archive-filters', // Filtros GET en listados (propiedades/vehiculos).
 		'ajax',          // Endpoint AJAX para los listados.
+		'gallery',       // Galeria de imagenes con lightbox.
 	);
 
 	foreach ( $modules as $module ) {
