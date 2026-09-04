@@ -1,0 +1,67 @@
+# ============================================================
+# Marymed Real Estate (marymed.pe) - Archivos protegidos
+# ============================================================
+
+# Ignorar configuraciones locales con contrasenas de Base de Datos
+wp-config.php
+.env
+
+# Ignorar archivos del sistema y caches
+.htaccess
+*.log
+error_log
+wp-content/cache/
+wp-content/backups/
+wp-content/uploads/
+wp-content/advanced-cache.php
+wp-content/object-cache.php
+wp-content/db.php
+wp-content/debug.log
+
+# ============================================================
+# Opcional (Si solo quieres versionar tu codigo y no el nucleo
+# completo de WP):
+# ============================================================
+# wp-admin/
+# wp-includes/
+# index.php
+# license.txt
+# readme.html
+# wp-activate.php
+# wp-blog-header.php
+# wp-comments-post.php
+# wp-cron.php
+# wp-links-opml.php
+# wp-load.php
+# wp-login.php
+# wp-mail.php
+# wp-settings.php
+# wp-signup.php
+# wp-trackback.php
+# xmlrpc.php
+
+# ============================================================
+# Credenciales locales (Sublime/VSCode/otras)
+# ============================================================
+wp-config.local.php
+*.sql
+*.sql.gz
+.env.*
+
+# ============================================================
+# Sistema operativo y editores
+# ============================================================
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+node_modules/
+
+# Temas de terceros que se instalan via el panel (no versionar)
+# wp-content/plugins/
+# wp-content/themes/bricks/
+# wp-content/themes/hello-elementor/
