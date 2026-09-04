@@ -1,0 +1,285 @@
+/*
+Theme Name:  Marymed Real Estate - Hello Child
+Theme URI:   https://marymed.pe
+Description: Tema hijo de Hello Elementor para Marymed Real Estate. Registra los CPT "propiedades" y "vehiculos" con sus campos ACF, plantillas PHP nativas (single/archive), esquemas JSON-LD GEO/SEO, mapa gratuito Leaflet y utilidades (WhatsApp, TikTok, compartir). Stack 100% gratuito.
+Author:      Marymed Real Estate - Jose Luis Perez Villalta
+Author URI:  https://marymed.pe
+Template:    hello-elementor
+Version:     1.1.0
+Text Domain: marymed
+Requires at least: 6.0
+Tested up to: 6.6
+License:     GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: real-estate, vehicles, acf, seo, leaflet
+*/
+
+/* ==========================================================
+   1) Layout general Marymed
+   ========================================================== */
+.mm-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 24px 16px;
+}
+.mm-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+	gap: 22px;
+}
+
+/* ==========================================================
+   2) Tarjetas de listado (archive)
+   ========================================================== */
+.mm-card {
+	display: flex;
+	flex-direction: column;
+	background: #fff;
+	border: 1px solid #e7e7e7;
+	border-radius: 12px;
+	overflow: hidden;
+	transition: transform .2s ease, box-shadow .2s ease;
+}
+.mm-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 24px rgba(0, 0, 0, .08);
+}
+.mm-card__media {
+	position: relative;
+	aspect-ratio: 4 / 3;
+	background: #f0f1f4;
+}
+.mm-card__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+.mm-card__price {
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+	background: rgba(17, 24, 39, .85);
+	color: #fff;
+	font-weight: 700;
+	padding: 4px 10px;
+	border-radius: 999px;
+	font-size: 14px;
+}
+.mm-card__body {
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	flex: 1;
+}
+.mm-card__title {
+	font-size: 18px;
+	margin: 0;
+}
+.mm-card__title a {
+	color: inherit;
+	text-decoration: none;
+}
+.mm-card__meta {
+	color: #555;
+	font-size: 14px;
+}
+.mm-card__cta {
+	margin-top: auto;
+}
+
+/* ==========================================================
+   3) Badges y precios (fichas)
+   ========================================================== */
+.mm-badges {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-bottom: 10px;
+}
+.mm-badge {
+	background: #eef2ff;
+	color: #3730a3;
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: .4px;
+	padding: 5px 10px;
+	border-radius: 999px;
+}
+.mm-badge--op { background: #ecfdf5; color: #047857; }
+
+.mm-ficha-grid {
+	display: grid;
+	grid-template-columns: 1fr 340px;
+	gap: 30px;
+	align-items: start;
+}
+@media (max-width: 900px) {
+	.mm-ficha-grid { grid-template-columns: 1fr; }
+}
+
+.mm-side-card {
+	background: #fafafa;
+	border: 1px solid #e7e7e7;
+	border-radius: 12px;
+	padding: 22px;
+	position: sticky;
+	top: 20px;
+}
+.mm-precio {
+	font-size: 28px;
+	font-weight: 800;
+	color: #111827;
+}
+.mm-precio span { font-size: 15px; font-weight: 600; color: #4b5563; }
+.mm-precio-pen { font-size: 15px; color: #6b7280; margin-bottom: 12px; }
+.mm-spec {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: 12px;
+	margin: 14px 0;
+}
+.mm-spec__item {
+	background: #fff;
+	border: 1px solid #e7e7e7;
+	border-radius: 8px;
+	padding: 10px 12px;
+}
+.mm-spec__item strong { display: block; font-size: 16px; }
+.mm-spec__item small { color: #6b7280; text-transform: uppercase; letter-spacing: .4px; font-size: 11px; }
+
+/* ==========================================================
+   4) Botones
+   ========================================================== */
+.mm-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	background: #111827;
+	color: #fff;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 12px 20px;
+	border-radius: 8px;
+	transition: opacity .2s ease;
+}
+.mm-btn:hover { color: #fff; opacity: .9; }
+.mm-btn--wa { background: #25d366; }
+.mm-btn--block { width: 100%; }
+.marymed-wa-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	gap: 8px;
+	background: #25d366;
+	color: #fff;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 12px 20px;
+	border-radius: 8px;
+}
+.marymed-wa-btn:hover { color: #fff; opacity: .9; }
+
+/* ==========================================================
+   5) Mapa Leaflet + contenedores embebidos
+   ========================================================== */
+.mm-leaflet {
+	width: 100%;
+	height: 420px;
+	border-radius: 12px;
+	z-index: 1;
+}
+.mm-3d,
+.mm-tiktok-embed {
+	margin-top: 24px;
+}
+
+/* ==========================================================
+   6) Boton flotante WhatsApp + compartir (se mantienen)
+   ========================================================== */
+.marymed-wa-float {
+	position: fixed;
+	right: 18px;
+	bottom: 18px;
+	z-index: 9999;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	background: #25d366;
+	color: #fff;
+	text-decoration: none;
+	font-weight: 700;
+	padding: 12px 18px;
+	border-radius: 999px;
+	box-shadow: 0 6px 18px rgba(37, 211, 102, .35);
+	transition: transform .2s ease;
+}
+.marymed-wa-float:hover { color: #fff; transform: translateY(-2px); }
+
+.marymed-share {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin-top: 14px;
+}
+.marymed-share a {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #fff;
+	text-decoration: none;
+	padding: 7px 12px;
+	border-radius: 999px;
+}
+.marymed-share .ms-wa { background: #25d366; }
+.marymed-share .ms-fb { background: #1877f2; }
+.marymed-share .ms-tg { background: #229ed9; }
+
+/* ==========================================================
+   7) Filtros de archivo
+   ========================================================== */
+.mm-filters {
+	background: #f6f6f6;
+	border-radius: 12px;
+	padding: 18px;
+	margin-bottom: 26px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: end;
+}
+.mm-filters label {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	font-size: 13px;
+	font-weight: 600;
+}
+.mm-filters select,
+.mm-filters input {
+	min-width: 170px;
+	padding: 8px 10px;
+	border: 1px solid #d1d5db;
+	border-radius: 6px;
+	background: #fff;
+}
+.mm-pagination {
+	margin-top: 30px;
+	display: flex;
+	gap: 6px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.mm-pagination .page-numbers {
+	padding: 6px 12px;
+	border: 1px solid #d1d5db;
+	border-radius: 6px;
+	text-decoration: none;
+}
+.mm-pagination .current { background: #111827; color: #fff; border-color: #111827; }

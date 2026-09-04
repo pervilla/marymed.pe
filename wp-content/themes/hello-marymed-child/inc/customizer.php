@@ -2,8 +2,9 @@
 /**
  * Ajustes del tema via Customizer (Apariencia > Personalizar > Marymed):
  *  - Numero de WhatsApp (con pais).
- *  - Mapbox Access Token.
- *  - Usuario corporativo de TikTok (para el feed de Smash Balloon).
+ *  - Usuario corporativo de TikTok (para Smash Balloon TikTok Feeds).
+ *
+ * El mapa usa Leaflet/OSM (gratis): no requiere token.
  *
  * @package Marymed
  */
@@ -49,25 +50,7 @@ function marymed_customize_register( $wp_customize ) {
 		)
 	);
 
-	// --- Mapbox ---
-	$wp_customize->add_setting(
-		'marymed_mapbox_token',
-		array(
-			'default'           => '',
-			'sanitize_callback' => 'marymed_sanitize_text',
-		)
-	);
-	$wp_customize->add_control(
-		'marymed_mapbox_token',
-		array(
-			'label'       => __( 'Mapbox Access Token', 'marymed' ),
-			'description' => __( 'pk.xxx de https://account.mapbox.com', 'marymed' ),
-			'section'     => 'marymed_integrations',
-			'type'        => 'password',
-		)
-	);
-
-	// --- TikTok (Smash Balloon) ---
+	// --- TikTok (Smash Balloon TikTok Feeds) ---
 	$wp_customize->add_setting(
 		'marymed_tiktok_user',
 		array(
@@ -88,13 +71,8 @@ function marymed_customize_register( $wp_customize ) {
 add_action( 'customize_register', 'marymed_customize_register' );
 
 /**
- * Valor util para pasar al widget de Smash Balloon TikTok Feeds:
- * devuelve el arreglo listo para shortcode, p.ej. para inyectarlo via
- * do_shortcode() desde una plantilla o el builder.
- *
- * Uso: echo do_shortcode( sprintf( '[fts_tiktok ... ]', marymed_tiktok_shortcode_args() ) );
+ * Devuelve el handle de TikTok guardado (para feeds de Smash Balloon).
  */
-function marymed_tiktok_shortcode_args() {
-	$user = get_theme_mod( 'marymed_tiktok_user', '' );
-	return apply_filters( 'marymed_tiktok_handle', $user );
+function marymed_tiktok_handle() {
+	return apply_filters( 'marymed_tiktok_handle', get_theme_mod( 'marymed_tiktok_user', '' ) );
 }

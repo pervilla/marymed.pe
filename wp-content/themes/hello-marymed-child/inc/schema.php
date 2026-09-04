@@ -1,12 +1,10 @@
 <?php
 /**
- * Esquemas JSON-LD para indexacion GEO/SEO (Rank Math Pro).
+ * Esquemas JSON-LD para indexacion GEO/SEO (autonomo, sin plugins).
  *
- * Inyecta nodos semanticos nuevos en el grafo de Rank Math:
- *  - CPT `propiedades` -> RealEstateListing + GeoCoordinates.
- *  - CPT `vehiculos`   -> Vehicle + Offer.
- *
- * Requiere que los campos ACF coincidan con los slugs de acf-fields.php.
+ * Genera RealEstateListing (propiedades) y Vehicle (vehiculos) con los
+ * campos ACF. Se auto-emite en <head> cuando NO hay Rank Math; si Rank
+ * Math esta activo, inyecta el nodo en su grafo para evitar duplicados.
  *
  * @package Marymed
  */
@@ -14,20 +12,24 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Construye el nodo de esquema de una propiedad.
+ * Nodo de esquema de una propiedad (RealEstateListing).
  */
 function marymed_property_schema( $post_id ) {
 	if ( ! function_exists( 'get_field' ) ) {
 		return array();
 	}
 
+	$excerpt = get_the_excerpt( $post_id );
+	$desc    = $excerpt ? $excerpt : wp_trim_words( get_the_content( $post_id ), 40 );
+
 	$schema = array(
-		'@type'        => 'RealEstateListing',
-		'name'         => get_the_title( $post_id ),
-		'url'          => get_permalink( $post_id ),
-		'description'  => wp_strip_all_tags( get_the_excerpt( $post_id ) ? get_the_excerpt( $post_id ) : get_the_content( $post_id ) ),
-		'datePosted'   => get_the_date( 'c', $post_id ),
+		'@type'            => 'RealEstateListing',
+		'name'             => get_the_title( $post_id ),
+		'url'              => get_permalink( $post_id ),
+		'description'      => wp_strip_all_tags( $desc ),
+		'datePosted'       => get_the_date( 'c', $post_id ),
 		'mainEntityOfPage' => get_permalink( $post_id ),
+		'image'            => get_the_post_thumbnail_url( $post_id, 'full' ),
 	);
 
 	// --- Oferta en USD (+ PEN como precio alterno). ---
@@ -43,7 +45,6 @@ function marymed_property_schema( $post_id ) {
 			'price'         => $price_usd > 0 ? $price_usd : $price_pen,
 		);
 
-		// Area total -> floorSize (m2).
 		$area = (float) get_field( 'area_total', $post_id );
 		if ( $area > 0 ) {
 			$offer['floorSize'] = array(
@@ -52,19 +53,9 @@ function marymed_property_schema( $post_id ) {
 				'unitCode' => 'MTK',
 			);
 		}
-
-		if ( $price_pen > 0 && $price_usd > 0 ) {
-			$schema['priceSpecification'] = array(
-				'@type'          => 'PriceSpecification',
-				'price'          => $price_pen,
-				'priceCurrency'  => 'PEN',
-			);
-		}
-
 		$schema['offers'] = $offer;
 	}
 
-	// --- Tipo de inmueble y operacion (categorias utiles para IA). ---
 	$tipo = get_field( 'tipo_inmueble', $post_id );
 	$op   = get_field( 'tipo_operacion', $post_id );
 	if ( $tipo ) {
@@ -77,7 +68,7 @@ function marymed_property_schema( $post_id ) {
 	}
 
 	// --- Ubicacion: PostalAddress + GeoCoordinates. ---
-	$location = get_field( 'ubicacion_mapbox', $post_id );
+	$location = marymed_location_data( $post_id );
 	if ( ! empty( $location['lat'] ) && ! empty( $location['lng'] ) ) {
 		$schema['geo'] = array(
 			'@type'     => 'GeoCoordinates',
@@ -97,23 +88,26 @@ function marymed_property_schema( $post_id ) {
 		$schema['address'] = $address;
 	}
 
-	return $schema;
+	return array_filter( $schema );
 }
 
 /**
- * Construye el nodo de esquema de un vehiculo.
+ * Nodo de esquema de un vehiculo (Vehicle).
  */
 function marymed_vehicle_schema( $post_id ) {
 	if ( ! function_exists( 'get_field' ) ) {
 		return array();
 	}
 
+	$excerpt = get_the_excerpt( $post_id );
+	$desc    = $excerpt ? $excerpt : wp_trim_words( get_the_content( $post_id ), 40 );
+
 	$schema = array(
 		'@type'       => 'Vehicle',
 		'name'        => get_the_title( $post_id ),
 		'url'         => get_permalink( $post_id ),
-		'description' => wp_strip_all_tags( get_the_excerpt( $post_id ) ? get_the_excerpt( $post_id ) : get_the_content( $post_id ) ),
-		'image'       => get_the_post_thumbnail_url( $post_id, 'full' ) ? get_the_post_thumbnail_url( $post_id, 'full' ) : '',
+		'description' => wp_strip_all_tags( $desc ),
+		'image'       => get_the_post_thumbnail_url( $post_id, 'full' ),
 	);
 
 	$tipo = get_field( 'tipo_vehiculo', $post_id );
@@ -140,7 +134,6 @@ function marymed_vehicle_schema( $post_id ) {
 		$schema['vehicleTransmission'] = $transmision;
 	}
 
-	// --- Oferta (Product/Offer dentro del Vehicle). ---
 	$price = (float) get_field( 'precio_vehiculo', $post_id );
 	if ( $price > 0 ) {
 		$schema['offers'] = array(
@@ -152,30 +145,51 @@ function marymed_vehicle_schema( $post_id ) {
 		);
 	}
 
-	return $schema;
+	return array_filter( $schema );
 }
 
 /**
- * Filtra el JSON-LD generado por Rank Math en paginas singulares.
+ * Auto-emision en <head> cuando NO esta activo Rank Math.
+ */
+function marymed_output_jsonld() {
+	// Si Rank Math esta activo, el nodo se inyecta via su filtro (abajo).
+	if ( defined( 'RANK_MATH_VERSION' ) ) {
+		return;
+	}
+
+	if ( ! is_singular( array( 'propiedades', 'vehiculos' ) ) ) {
+		return;
+	}
+
+	$post_id = get_the_ID();
+	$type    = get_post_type( $post_id );
+
+	$schema = ( 'vehiculos' === $type )
+		? marymed_vehicle_schema( $post_id )
+		: marymed_property_schema( $post_id );
+
+	if ( empty( $schema ) ) {
+		return;
+	}
+
+	echo '<script type="application/ld+json">' . wp_json_encode( array( '@context' => 'https://schema.org', $schema ), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ) . '</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput
+}
+add_action( 'wp_head', 'marymed_output_jsonld', 15 );
+
+/**
+ * Si Rank Math esta presente, se integra a su grafo (sin duplicar).
  */
 function marymed_rank_math_schema( $data, $jsonld = array() ) {
 	if ( ! is_singular( array( 'propiedades', 'vehiculos' ) ) ) {
 		return $data;
 	}
 
-	$post_id   = get_the_ID();
-	$post_type = get_post_type( $post_id );
+	$post_id = get_the_ID();
 
-	if ( 'propiedades' === $post_type ) {
-		$schema = marymed_property_schema( $post_id );
-		if ( ! empty( $schema ) ) {
-			$data['marymed_property'] = $schema;
-		}
-	} elseif ( 'vehiculos' === $post_type ) {
-		$schema = marymed_vehicle_schema( $post_id );
-		if ( ! empty( $schema ) ) {
-			$data['marymed_vehicle'] = $schema;
-		}
+	if ( 'propiedades' === get_post_type( $post_id ) ) {
+		$data['marymed_property'] = marymed_property_schema( $post_id );
+	} else {
+		$data['marymed_vehicle'] = marymed_vehicle_schema( $post_id );
 	}
 
 	return $data;
