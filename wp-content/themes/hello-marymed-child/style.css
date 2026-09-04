@@ -416,3 +416,15 @@ Tags: real-estate, vehicles, acf, seo, leaflet
 	transform: none;
 	font-size: 26px;
 }
+
+/* ==========================================================
+   10) TikTok feed (home)
+   ========================================================== */
+.mm-tiktok-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	gap: 20px;
+	justify-items: center;
+}
+.mm-tiktok-item { width: 100%; }
+.mm-tiktok-more { text-align: center; margin-top: 18px; }

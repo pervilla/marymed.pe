@@ -19,6 +19,10 @@ function marymed_sanitize_text( $value ) {
 	return sanitize_text_field( $value );
 }
 
+function marymed_sanitize_textarea( $value ) {
+	return sanitize_textarea_field( $value );
+}
+
 /**
  * Registro de la seccion y controles.
  */
@@ -65,6 +69,24 @@ function marymed_customize_register( $wp_customize ) {
 			'description' => __( 'Sin @. Ej: marymed', 'marymed' ),
 			'section'     => 'marymed_integrations',
 			'type'        => 'text',
+		)
+	);
+
+	// --- Videos TikTok para la Home (feed sin plugins) ---
+	$wp_customize->add_setting(
+		'marymed_tiktok_videos',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'marymed_sanitize_textarea',
+		)
+	);
+	$wp_customize->add_control(
+		'marymed_tiktok_videos',
+		array(
+			'label'       => __( 'Videos TikTok de la Home', 'marymed' ),
+			'description' => __( 'Un enlace de video por linea (max. 4). Se muestran en la portada.', 'marymed' ),
+			'section'     => 'marymed_integrations',
+			'type'        => 'textarea',
 		)
 	);
 }

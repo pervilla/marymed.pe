@@ -101,6 +101,7 @@ function marymed_wa_cta_link() {
 		esc_html__( 'Escribir por WhatsApp', 'marymed' )
 	);
 }
+add_shortcode( 'marymed_wa_cta', 'marymed_wa_cta_link' );
 
 /* ============================================================
  * TIKTOK EMBED
@@ -161,6 +162,75 @@ function marymed_tiktok_embed( $post_id = 0 ) {
 	);
 }
 add_shortcode( 'marymed_tiktok', 'marymed_tiktok_embed' );
+
+/* ============================================================
+ * TIKTOK FEED (HOME) - sin plugins
+ * ========================================================== */
+
+/**
+ * URLs de video TikTok configuradas en el Customizer (max. 4 validas).
+ */
+function marymed_tiktok_feed_urls() {
+	$raw = get_theme_mod( 'marymed_tiktok_videos', '' );
+	$raw = apply_filters( 'marymed_tiktok_feed_urls', $raw );
+	if ( ! $raw ) {
+		return array();
+	}
+
+	$lines = preg_split( '/\r\n|\r|\n/', (string) $raw );
+	$urls  = array();
+
+	foreach ( $lines as $line ) {
+		$line = trim( $line );
+		if ( '' === $line ) {
+			continue;
+		}
+		if ( ! marymed_tiktok_video_id( $line ) ) {
+			continue;
+		}
+		$urls[] = esc_url_raw( $line );
+		if ( count( $urls ) >= 4 ) {
+			break;
+		}
+	}
+
+	return $urls;
+}
+
+/**
+ * Grid HTML con los videos oficiales de TikTok (blockquote + embed.js).
+ * Devuelve '' si no hay URLs configuradas.
+ */
+function marymed_tiktok_feed_html() {
+	$urls   = marymed_tiktok_feed_urls();
+	$handle = get_theme_mod( 'marymed_tiktok_user', '' );
+
+	if ( empty( $urls ) ) {
+		return '';
+	}
+
+	$html = '<div class="mm-tiktok-grid">';
+	foreach ( $urls as $url ) {
+		$id = marymed_tiktok_video_id( $url );
+		$html .= sprintf(
+			'<div class="mm-tiktok-item"><blockquote class="tiktok-embed" cite="%1$s" data-video-id="%2$s" data-embed-from="oembed" style="max-width:100%%;min-width:0px;"><section><a target="_blank" rel="noopener" href="%1$s">%1$s</a></section></blockquote></div>',
+			esc_url( $url ),
+			esc_attr( $id )
+		);
+	}
+	$html .= '</div>';
+	$html .= '<script async src="https://www.tiktok.com/embed.js"></script>';
+
+	if ( $handle ) {
+		$html .= sprintf(
+			'<p class="mm-tiktok-more"><a href="%1$s" target="_blank" rel="noopener nofollow">@%2$s</a></p>',
+			esc_url( 'https://www.tiktok.com/@' . $handle ),
+			esc_html( $handle )
+		);
+	}
+
+	return $html;
+}
 
 /* ============================================================
  * BOTONES DE COMPARTIR (grid)

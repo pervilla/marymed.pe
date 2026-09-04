@@ -88,6 +88,21 @@ get_header();
 		</section>
 	<?php endif; ?>
 
+	<?php
+	// ========================= TIKTOK =========================
+	$tiktok_feed = marymed_tiktok_feed_html();
+	if ( $tiktok_feed ) :
+		?>
+		<section class="mm-home-section">
+			<div class="mm-container">
+				<div class="mm-section-head">
+					<h2><?php esc_html_e( 'Lo ultimo en TikTok', 'marymed' ); ?></h2>
+				</div>
+				<?php echo $tiktok_feed; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			</div>
+		</section>
+	<?php endif; ?>
+
 	<!-- ======================= CTA WHATSAPP ======================= -->
 	<section class="mm-cta">
 		<div class="mm-container">
