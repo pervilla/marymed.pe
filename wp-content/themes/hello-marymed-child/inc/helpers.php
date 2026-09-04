@@ -83,6 +83,25 @@ function marymed_wa_float( $post_id = 0 ) {
 }
 add_shortcode( 'marymed_whatsapp_float', 'marymed_wa_float' );
 
+/**
+ * CTA generico de WhatsApp (sin post asociado). Para secciones/home.
+ */
+function marymed_wa_cta_link() {
+	$number = marymed_whatsapp_number();
+	if ( ! $number ) {
+		return '';
+	}
+
+	$text = __( 'Hola Marymed, quiero informacion sobre sus publicaciones.', 'marymed' );
+	$href = 'https://wa.me/' . $number . '?text=' . rawurlencode( $text );
+
+	return sprintf(
+		'<a class="mm-btn mm-btn--wa" href="%1$s" target="_blank" rel="noopener nofollow">%2$s</a>',
+		esc_url( $href ),
+		esc_html__( 'Escribir por WhatsApp', 'marymed' )
+	);
+}
+
 /* ============================================================
  * TIKTOK EMBED
  * ========================================================== */

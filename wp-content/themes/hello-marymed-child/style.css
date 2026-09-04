@@ -283,3 +283,58 @@ Tags: real-estate, vehicles, acf, seo, leaflet
 	text-decoration: none;
 }
 .mm-pagination .current { background: #111827; color: #fff; border-color: #111827; }
+
+/* ==========================================================
+   8) Portada (front-page.php)
+   ========================================================== */
+.mm-hero {
+	background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+	color: #fff;
+	padding: 72px 0;
+	text-align: center;
+}
+.mm-hero__title {
+	font-size: clamp(28px, 5vw, 46px);
+	margin: 0 0 12px;
+	line-height: 1.15;
+}
+.mm-hero__sub {
+	font-size: 17px;
+	opacity: .85;
+	max-width: 640px;
+	margin: 0 auto 26px;
+}
+.mm-hero__cta {
+	display: flex;
+	gap: 12px;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.mm-hero__cta .mm-btn--wa { background: #25d366; }
+
+.mm-home-section { padding: 48px 0; }
+.mm-home-section--alt { background: #f6f7f9; }
+.mm-section-head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 24px;
+	flex-wrap: wrap;
+}
+.mm-section-head h2 { margin: 0; }
+
+.mm-btn--ghost {
+	background: transparent;
+	color: #111827;
+	border: 1px solid #d1d5db;
+}
+.mm-btn--ghost:hover { border-color: #111827; color: #111827; }
+
+.mm-cta {
+	background: #ecfdf5;
+	text-align: center;
+	padding: 48px 0;
+}
+.mm-cta h2 { margin: 0 0 8px; }
+.mm-cta p { margin: 0 0 20px; color: #374151; }
