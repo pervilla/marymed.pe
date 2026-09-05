@@ -677,11 +677,11 @@ h1, h2, h3, h4, h5, h6,
 }
 /* Boton solido (primario) y contorno (secundario) dentro del hero */
 .mm-hero .mm-btn--solid {
-	background: #ffffff;
-	color: var(--mm-navy-900);
+	background: var(--mm-gold);
+	color: #0a1a2e;
 	box-shadow: 0 10px 26px rgba(0, 0, 0, .28);
 }
-.mm-hero .mm-btn--solid:hover { background: var(--mm-gold); color: var(--mm-navy-900); }
+.mm-hero .mm-btn--solid:hover { background: #ffffff; color: var(--mm-navy-900); }
 .mm-hero .mm-btn--ghost {
 	background: transparent;
 	border: 1.5px solid rgba(255, 255, 255, .85);
