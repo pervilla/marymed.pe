@@ -58,6 +58,19 @@ function marymed_enqueue_styles() {
 add_action( 'wp_enqueue_scripts', 'marymed_enqueue_styles', 20 );
 
 /**
+ * Tipografias de Google Fonts (Inter + Sora).
+ */
+function marymed_enqueue_fonts() {
+	wp_enqueue_style(
+		'marymed-fonts',
+		'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap',
+		array(),
+		null
+	);
+}
+add_action( 'wp_enqueue_scripts', 'marymed_enqueue_fonts', 19 );
+
+/**
  * Soporte basico del tema.
  */
 function marymed_theme_support() {

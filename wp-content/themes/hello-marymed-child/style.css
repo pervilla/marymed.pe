@@ -502,3 +502,125 @@ textarea:focus-visible {
 	* { transition: none !important; animation: none !important; }
 	html { scroll-behavior: auto !important; }
 }
+
+/* ==========================================================
+   12) Identidad visual Marymed (paleta + tipografia)
+   ========================================================== */
+:root {
+	--mm-navy: #0e2a47;
+	--mm-navy-900: #081d33;
+	--mm-navy-700: #14406b;
+	--mm-gold: #c9a24b;
+	--mm-ink: #16232f;
+	--mm-muted: #5c6b7a;
+	--mm-bg: #ffffff;
+	--mm-bg-soft: #f4f7fa;
+	--mm-line: #e3e9ef;
+	--mm-wa: #22c55e;
+	--mm-wa-dark: #16a34a;
+	--mm-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--mm-font-head: 'Sora', var(--mm-font-body);
+	--mm-radius: 14px;
+	--mm-shadow: 0 14px 40px rgba(14, 42, 71, .10);
+}
+
+body,
+.mm-container,
+.mm-content {
+	font-family: var(--mm-font-body);
+	color: var(--mm-ink);
+}
+
+h1, h2, h3, h4, h5, h6,
+.mm-title, .mm-card__title,
+.mm-hero__title, .mm-section-head h2,
+.mm-cta h2 {
+	font-family: var(--mm-font-head);
+	color: var(--mm-navy);
+	letter-spacing: -.02em;
+}
+
+::selection { background: var(--mm-navy); color: #fff; }
+
+/* Enlaces de contenido */
+.mm-content a, .entry-content a { color: var(--mm-navy-700); text-decoration: underline; text-underline-offset: 3px; }
+.mm-content a:hover { color: var(--mm-navy); }
+
+/* Botones */
+.mm-btn {
+	border: none;
+	border-radius: 10px;
+	font-weight: 700;
+	letter-spacing: .2px;
+	box-shadow: 0 6px 18px rgba(14, 42, 71, .14);
+	transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.mm-btn:hover { transform: translateY(-2px); }
+.mm-btn:not(.mm-btn--wa):not(.mm-btn--ghost) { background: var(--mm-navy); }
+.mm-btn:not(.mm-btn--wa):not(.mm-btn--ghost):hover { background: var(--mm-navy-700); }
+.mm-btn--ghost { background: #fff; border: 1.5px solid var(--mm-line); color: var(--mm-navy); box-shadow: none; }
+.mm-btn--ghost:hover { border-color: var(--mm-navy); color: var(--mm-navy); }
+.mm-btn--wa,
+.marymed-wa-btn { background: var(--mm-wa); }
+.mm-btn--wa:hover,
+.marymed-wa-btn:hover { background: var(--mm-wa-dark); }
+.mm-hero__cta .mm-btn--wa { background: var(--mm-wa); }
+.mm-hero__cta .mm-btn--wa:hover { background: var(--mm-wa-dark); }
+
+/* Badges */
+.mm-badge { background: #e7eef6; color: var(--mm-navy); }
+.mm-badge--op { background: #e5f6ec; color: #157347; }
+
+/* Hero */
+.mm-hero {
+	background:
+		radial-gradient(1100px 500px at 85% -10%, rgba(201, 162, 75, .18), transparent 60%),
+		linear-gradient(135deg, var(--mm-navy-900) 0%, var(--mm-navy) 55%, var(--mm-navy-700) 100%);
+}
+
+/* Tarjetas */
+.mm-card {
+	border-radius: var(--mm-radius);
+	border: 1px solid var(--mm-line);
+}
+.mm-card:hover {
+	box-shadow: var(--mm-shadow);
+	border-color: #cbd8e5;
+	transform: translateY(-4px);
+}
+.mm-card__media { border-radius: var(--mm-radius) var(--mm-radius) 0 0; }
+.mm-card__price {
+	background: rgba(8, 29, 51, .88);
+	backdrop-filter: blur(2px);
+	font-family: var(--mm-font-head);
+	letter-spacing: .3px;
+}
+
+/* Fichas */
+.mm-title { color: var(--mm-navy); }
+.mm-precio { color: var(--mm-navy); }
+.mm-precio span { color: var(--mm-gold); font-family: var(--mm-font-head); }
+.mm-side-card {
+	border: 1px solid var(--mm-line);
+	border-radius: var(--mm-radius);
+	box-shadow: var(--mm-shadow);
+}
+.mm-spec__item {
+	border: 1px solid var(--mm-line);
+	border-radius: 10px;
+}
+.mm-spec__item small { color: var(--mm-gold); font-weight: 700; }
+
+/* Fondos suaves */
+.mm-home-section--alt,
+.mm-filters { background: var(--mm-bg-soft); }
+.mm-filters { border: 1px solid var(--mm-line); }
+.mm-cta { background: linear-gradient(180deg, #ecfdf5, #f0fdf4); }
+
+/* Paginacion y detalles */
+.mm-pagination .current { background: var(--mm-navy); border-color: var(--mm-navy); }
+.mm-pagination .page-numbers { border-radius: 8px; color: var(--mm-navy); }
+
+/* Galeria */
+.mm-gallery__item { border-radius: 10px; }
+.mm-lightbox__btn:hover { background: var(--mm-gold); color: var(--mm-navy-900); }

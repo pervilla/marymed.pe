@@ -48,6 +48,8 @@ add_action( 'init', 'marymed_remove_wp_generator' );
  */
 function marymed_preconnect_hints() {
 	$hosts = array(
+		'https://fonts.googleapis.com',
+		'https://fonts.gstatic.com',
 		'https://unpkg.com',
 		'https://tile.openstreetmap.org',
 		'https://www.tiktok.com',
