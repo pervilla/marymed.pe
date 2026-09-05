@@ -119,6 +119,9 @@ function marymed_body_classes( $classes ) {
 	if ( is_singular( array( 'propiedades', 'vehiculos' ) ) ) {
 		$classes[] = 'marymed-single marymed-' . get_post_type();
 	}
+	if ( is_front_page() ) {
+		$classes[] = 'marymed-front';
+	}
 	return $classes;
 }
 add_filter( 'body_class', 'marymed_body_classes' );

@@ -691,6 +691,36 @@ h1, h2, h3, h4, h5, h6,
 .mm-hero .mm-btn--ghost:hover { background: #ffffff; border-color: #ffffff; color: var(--mm-navy-900); }
 
 /* ==========================================================
+   15) Home: header transparente superpuesto + hero full-bleed
+   ========================================================== */
+body.marymed-front #site-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1001;
+	background: linear-gradient(180deg, rgba(8, 20, 40, .5) 0%, rgba(8, 20, 40, 0) 100%);
+	border-bottom: 1px solid rgba(255, 255, 255, .12);
+	box-shadow: none;
+	backdrop-filter: none;
+}
+body.marymed-front #site-header .menu > li > a { color: #ffffff; }
+body.marymed-front #site-header .menu > li > a:hover { color: #ffffff; border-bottom-color: var(--mm-gold); }
+body.marymed-front #site-header .menu > .current-menu-item > a,
+body.marymed-front #site-header .menu > .current_page_item > a { color: #ffffff; border-bottom-color: var(--mm-gold); }
+body.marymed-front #site-header .site-title a,
+body.marymed-front #site-header .site-title { color: #ffffff; }
+
+/* Hero sube hasta el tope y deja aire para el header transparente */
+body.marymed-front .mm-home,
+body.marymed-front .mm-hero { margin-top: 0; }
+body.marymed-front .mm-hero { padding-top: clamp(150px, 18vh, 230px); }
+body.marymed-front .mm-hero.has-image {
+	background-size: cover;
+	background-position: center top;
+}
+
+/* ==========================================================
    14) Estilo "Constructions": header sticky, menú mayusculas,
        hero alto, ventajas y banda de contacto oscura
    ========================================================== */
@@ -746,8 +776,7 @@ h1, h2, h3, h4, h5, h6,
 	text-align: center;
 	transition: transform .2s ease, box-shadow .2s ease;
 }
-.mm-feat:hover { transform: translateY(-4px); box-shadow: var(--mm-shadow); }
-.mm-feat__icon {
+.mm-feat:hover { transform: translateY(-4px); box-shadow: var(--mm-shadow); }.mm-feat__icon {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
