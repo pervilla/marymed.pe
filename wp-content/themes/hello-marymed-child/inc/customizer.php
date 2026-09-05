@@ -89,6 +89,46 @@ function marymed_customize_register( $wp_customize ) {
 			'type'        => 'textarea',
 		)
 	);
+
+	// --- Imagen de fondo de la Home (hero) ---
+	$wp_customize->add_setting(
+		'marymed_hero_image',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'marymed_hero_image',
+			array(
+				'label'       => __( 'Imagen de fondo de la Home', 'marymed' ),
+				'description' => __( 'Recomendado 1920x1080. Se aplica una capa oscura automatica para legibilidad.', 'marymed' ),
+				'section'     => 'marymed_integrations',
+			)
+		)
+	);
+
+	// --- Imagen social por defecto (Open Graph / WhatsApp) ---
+	$wp_customize->add_setting(
+		'marymed_social_image',
+		array(
+			'default'           => '',
+			'sanitize_callback' => 'esc_url_raw',
+		)
+	);
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+			$wp_customize,
+			'marymed_social_image',
+			array(
+				'label'       => __( 'Imagen redes sociales (preview)', 'marymed' ),
+				'description' => __( 'Se usa cuando compartes la web en WhatsApp/redes. Recomendado 1200x630.', 'marymed' ),
+				'section'     => 'marymed_integrations',
+			)
+		)
+	);
 }
 add_action( 'customize_register', 'marymed_customize_register' );
 

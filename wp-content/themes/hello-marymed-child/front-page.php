@@ -15,7 +15,13 @@ get_header();
 <div class="mm-home">
 
 	<!-- ============================ HERO ============================ -->
-	<section class="mm-hero">
+	<?php
+	$hero_image = get_theme_mod( 'marymed_hero_image', '' );
+	$hero_style = $hero_image
+		? ' style="background-image:linear-gradient(rgba(8,29,51,.78), rgba(8,29,51,.86)), url(' . esc_url( $hero_image ) . ');"'
+		: '';
+	?>
+	<section class="mm-hero<?php echo $hero_image ? ' has-image' : ''; ?>"<?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput ?>>
 		<div class="mm-container">
 			<h1 class="mm-hero__title"><?php esc_html_e( 'Encuentra tu propiedad o tu proximo auto', 'marymed' ); ?></h1>
 			<p class="mm-hero__sub"><?php esc_html_e( 'Lotes, casas, departamentos, edificios y vehiculos verificados. Atencion directa por WhatsApp.', 'marymed' ); ?></p>

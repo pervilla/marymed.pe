@@ -624,3 +624,24 @@ h1, h2, h3, h4, h5, h6,
 /* Galeria */
 .mm-gallery__item { border-radius: 10px; }
 .mm-lightbox__btn:hover { background: var(--mm-gold); color: var(--mm-navy-900); }
+
+/* ==========================================================
+   13) Logo del header + hero con imagen de fondo
+   ========================================================== */
+#site-header .custom-logo,
+.site-branding .custom-logo {
+	height: 52px;
+	width: auto;
+	max-width: none;
+	object-fit: contain;
+}
+@media (max-width: 600px) {
+	#site-header .custom-logo,
+	.site-branding .custom-logo { height: 44px; }
+}
+
+/* Hero con imagen (capa oscura la pone el inline style del tema) */
+.mm-hero.has-image {
+	background-size: cover, cover;
+	background-position: center center;
+}

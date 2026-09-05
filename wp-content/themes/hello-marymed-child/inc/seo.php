@@ -78,6 +78,14 @@ function marymed_og_meta() {
 
 	$site_name = get_bloginfo( 'name' );
 
+	// Imagen por defecto de la marca (preview social) si la publicacion no tiene.
+	if ( ! $image ) {
+		$social = get_theme_mod( 'marymed_social_image', '' );
+		if ( $social ) {
+			$image = $social;
+		}
+	}
+
 	echo "\n<!-- Open Graph / Marymed -->\n";
 	printf( '<meta property="og:type" content="%s">' . "\n", esc_attr( $type ) );
 	printf( '<meta property="og:locale" content="es_PE">' . "\n" );
