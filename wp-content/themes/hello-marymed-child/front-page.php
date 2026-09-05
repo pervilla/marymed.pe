@@ -18,7 +18,7 @@ get_header();
 	<?php
 	$hero_image = get_theme_mod( 'marymed_hero_image', '' );
 	$hero_style = $hero_image
-		? ' style="background-image:linear-gradient(rgba(8,29,51,.78), rgba(8,29,51,.86)), url(' . esc_url( $hero_image ) . ');"'
+		? ' style="background-image:url(' . esc_url( $hero_image ) . ');"'
 		: '';
 	?>
 	<section class="mm-hero<?php echo $hero_image ? ' has-image' : ''; ?>"<?php echo $hero_style; // phpcs:ignore WordPress.Security.EscapeOutput ?>>

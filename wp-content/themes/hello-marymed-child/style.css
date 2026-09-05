@@ -640,8 +640,25 @@ h1, h2, h3, h4, h5, h6,
 	.site-branding .custom-logo { height: 44px; }
 }
 
-/* Hero con imagen (capa oscura la pone el inline style del tema) */
+/* Hero con imagen (capa oscura automatica, moderada para que la imagen luzca) */
+.mm-hero { position: relative; }
 .mm-hero.has-image {
-	background-size: cover, cover;
+	background-size: cover;
 	background-position: center center;
+}
+.mm-hero.has-image::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background:
+		linear-gradient(180deg, rgba(9, 28, 53, .30) 0%, rgba(9, 28, 53, .48) 55%, rgba(9, 28, 53, .66) 100%);
+}
+.mm-hero.has-image > .mm-container { position: relative; z-index: 1; }
+.mm-hero.has-image .mm-hero__title {
+	text-shadow: 0 3px 18px rgba(0, 0, 0, .55), 0 1px 4px rgba(0, 0, 0, .4);
+}
+.mm-hero.has-image .mm-hero__sub {
+	text-shadow: 0 2px 10px rgba(0, 0, 0, .5);
 }
