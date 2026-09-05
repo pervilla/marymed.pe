@@ -652,8 +652,10 @@ h1, h2, h3, h4, h5, h6,
 	inset: 0;
 	z-index: 0;
 	pointer-events: none;
+	/* Patron comun en portales: imagen clara arriba, vineta suave hacia abajo
+	   para anclar el texto y los botones sin tapar la foto. */
 	background:
-		linear-gradient(180deg, rgba(9, 28, 53, .30) 0%, rgba(9, 28, 53, .48) 55%, rgba(9, 28, 53, .66) 100%);
+		linear-gradient(180deg, rgba(9, 28, 53, .15) 0%, rgba(9, 28, 53, .38) 55%, rgba(9, 28, 53, .66) 100%);
 }
 .mm-hero.has-image > .mm-container { position: relative; z-index: 1; }
 .mm-hero.has-image .mm-hero__title {
