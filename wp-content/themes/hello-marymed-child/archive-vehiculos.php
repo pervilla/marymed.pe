@@ -10,6 +10,9 @@ get_header();
 $choices = marymed_filter_choices();
 $current_tipo  = marymed_choice_value( 'tipo_vehiculo', $choices['tipo_vehiculo'] );
 $current_trans = marymed_choice_value( 'transmision_vehiculo', $choices['transmision_vehiculo'] );
+$precio_min    = isset( $_GET['precio_min'] ) ? (int) $_GET['precio_min'] : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$precio_max    = isset( $_GET['precio_max'] ) ? (int) $_GET['precio_max'] : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$current_orden = isset( $_GET['orden'] ) ? sanitize_key( wp_unslash( $_GET['orden'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 ?>
 
 <div class="mm-container">
@@ -39,8 +42,27 @@ $current_trans = marymed_choice_value( 'transmision_vehiculo', $choices['transmi
 			</select>
 		</label>
 
+		<label>
+			<?php esc_html_e( 'Precio USD desde', 'marymed' ); ?>
+			<input type="number" min="0" name="precio_min" value="<?php echo esc_attr( $precio_min ); ?>" placeholder="1000">
+		</label>
+
+		<label>
+			<?php esc_html_e( 'Precio USD hasta', 'marymed' ); ?>
+			<input type="number" min="0" name="precio_max" value="<?php echo esc_attr( $precio_max ); ?>" placeholder="50000">
+		</label>
+
+		<label>
+			<?php esc_html_e( 'Ordenar por', 'marymed' ); ?>
+			<select name="orden">
+				<option value="" <?php selected( $current_orden, '' ); ?>><?php esc_html_e( 'Mas recientes', 'marymed' ); ?></option>
+				<option value="precio_asc" <?php selected( $current_orden, 'precio_asc' ); ?>><?php esc_html_e( 'Precio: menor a mayor', 'marymed' ); ?></option>
+				<option value="precio_desc" <?php selected( $current_orden, 'precio_desc' ); ?>><?php esc_html_e( 'Precio: mayor a menor', 'marymed' ); ?></option>
+			</select>
+		</label>
+
 		<button class="mm-btn" type="submit"><?php esc_html_e( 'Filtrar', 'marymed' ); ?></button>
-		<?php if ( $current_tipo || $current_trans ) : ?>
+		<?php if ( $current_tipo || $current_trans || $precio_min || $precio_max || $current_orden ) : ?>
 			<a class="mm-btn mm-btn--wa" href="<?php echo esc_url( get_post_type_archive_link( 'vehiculos' ) ); ?>"><?php esc_html_e( 'Limpiar', 'marymed' ); ?></a>
 		<?php endif; ?>
 	</form>

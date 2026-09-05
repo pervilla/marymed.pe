@@ -22,7 +22,7 @@ function marymed_ajax_pagination( $total, $current ) {
 	}
 
 	// Refleja solo los parametros de filtro conocidos.
-	$allowed = array( 'tipo_inmueble', 'tipo_operacion', 'zona', 'tipo_vehiculo', 'transmision_vehiculo' );
+	$allowed = array( 'tipo_inmueble', 'tipo_operacion', 'zona', 'tipo_vehiculo', 'transmision_vehiculo', 'precio_min', 'precio_max', 'orden' );
 	$base_q  = '';
 	foreach ( $allowed as $key ) {
 		if ( isset( $_REQUEST[ $key ] ) && '' !== $_REQUEST[ $key ] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -49,17 +49,18 @@ function marymed_ajax_pagination( $total, $current ) {
  */
 function marymed_render_archive_results( $cpt, $paged ) {
 	$meta    = marymed_archive_meta_query( $cpt, $_REQUEST ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$sort    = marymed_archive_sort_args( $cpt, $_REQUEST ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	$perpage = (int) get_option( 'posts_per_page', 10 );
 
-	$query = new WP_Query(
-		array(
-			'post_type'      => $cpt,
-			'post_status'    => 'publish',
-			'posts_per_page' => $perpage,
-			'paged'          => $paged,
-			'meta_query'     => $meta,
-		)
+	$query_args = array(
+		'post_type'      => $cpt,
+		'post_status'    => 'publish',
+		'posts_per_page' => $perpage,
+		'paged'          => $paged,
+		'meta_query'     => $meta,
 	);
+
+	$query = new WP_Query( array_merge( $query_args, $sort ) );
 
 	if ( ! $query->have_posts() ) {
 		return '<p>' . esc_html__( 'No se encontraron resultados con esos criterios.', 'marymed' ) . '</p>';
