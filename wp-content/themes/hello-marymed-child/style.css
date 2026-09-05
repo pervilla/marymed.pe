@@ -700,7 +700,7 @@ body.marymed-front #site-header {
 	right: 0;
 	z-index: 1001;
 	background: linear-gradient(180deg, rgba(8, 20, 40, .5) 0%, rgba(8, 20, 40, 0) 100%);
-	border-bottom: 1px solid rgba(255, 255, 255, .12);
+	border-bottom: none; /* anula la linea (base y la blanca) para que el hero suba limpio */
 	box-shadow: none;
 	backdrop-filter: none;
 }
