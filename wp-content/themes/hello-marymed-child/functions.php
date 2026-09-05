@@ -30,6 +30,8 @@ function marymed_load_includes() {
 		'archive-filters', // Filtros GET en listados (propiedades/vehiculos).
 		'ajax',          // Endpoint AJAX para los listados.
 		'gallery',       // Galeria de imagenes con lightbox.
+		'seo',           // Meta description + Open Graph.
+		'performance',   // Limpieza de emojis/oEmbed y preconnect.
 	);
 
 	foreach ( $modules as $module ) {
