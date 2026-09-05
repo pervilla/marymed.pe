@@ -699,17 +699,18 @@ body.marymed-front #site-header {
 	left: 0;
 	right: 0;
 	z-index: 1001;
-	background: linear-gradient(180deg, rgba(8, 20, 40, .5) 0%, rgba(8, 20, 40, 0) 100%);
+	/* Velo blanco sutil de superior a inferior sobre el hero */
+	background: linear-gradient(180deg, rgba(255, 255, 255, .62) 0%, rgba(255, 255, 255, 0) 100%);
 	border-bottom: none; /* anula la linea (base y la blanca) para que el hero suba limpio */
 	box-shadow: none;
 	backdrop-filter: none;
 }
-body.marymed-front #site-header .menu > li > a { color: #ffffff; }
-body.marymed-front #site-header .menu > li > a:hover { color: #ffffff; border-bottom-color: var(--mm-gold); }
+body.marymed-front #site-header .menu > li > a { color: var(--mm-navy); }
+body.marymed-front #site-header .menu > li > a:hover { color: var(--mm-navy-700); border-bottom-color: var(--mm-gold); }
 body.marymed-front #site-header .menu > .current-menu-item > a,
-body.marymed-front #site-header .menu > .current_page_item > a { color: #ffffff; border-bottom-color: var(--mm-gold); }
+body.marymed-front #site-header .menu > .current_page_item > a { color: var(--mm-navy-700); border-bottom-color: var(--mm-gold); }
 body.marymed-front #site-header .site-title a,
-body.marymed-front #site-header .site-title { color: #ffffff; }
+body.marymed-front #site-header .site-title { color: var(--mm-navy); }
 
 /* Hero sube hasta el tope y deja aire para el header transparente */
 body.marymed-front .mm-home,
