@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Marymed Real Estate - Hello Elementor Child
  *
@@ -12,7 +12,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'MARYMED_THEME_VERSION', '1.2.0' );
+define( 'MARYMED_THEME_VERSION', '1.2.1' );
 define( 'MARYMED_THEME_DIR', get_stylesheet_directory() );
 define( 'MARYMED_THEME_URI', get_stylesheet_directory_uri() );
 

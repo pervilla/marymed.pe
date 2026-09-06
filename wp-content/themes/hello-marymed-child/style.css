@@ -556,8 +556,8 @@ h1, h2, h3, h4, h5, h6,
 	transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 .mm-btn:hover { transform: translateY(-2px); }
-.mm-btn:not(.mm-btn--wa):not(.mm-btn--ghost) { background: var(--mm-navy); }
-.mm-btn:not(.mm-btn--wa):not(.mm-btn--ghost):hover { background: var(--mm-navy-700); }
+.mm-btn:not(.mm-btn--wa):not(.mm-btn--ghost):not(.mm-btn--solid) { background: var(--mm-navy); }
+.mm-btn:not(.mm-btn--wa):not(.mm-btn--ghost):not(.mm-btn--solid):hover { background: var(--mm-navy-700); }
 .mm-btn--ghost { background: #fff; border: 1.5px solid var(--mm-line); color: var(--mm-navy); box-shadow: none; }
 .mm-btn--ghost:hover { border-color: var(--mm-navy); color: var(--mm-navy); }
 .mm-btn--wa,
